@@ -43,9 +43,15 @@ function Welcome() {
   ]);
 
   return (
-    <section className="pricing py-5">
-      <div className="container">
-        <form className="formele">
+    <section className="pricing py-5  mainBack">
+      <button type="button" class="btn btn-light" onClick={on}>
+        + Add Movie
+      </button>
+      <div id="formcontainer1" className="container formcontainer">
+        {/* <div className="closeBox"> */}
+        <i class="fa-solid fa-xmark" onClick={off}></i>
+        {/* </div> */}
+        <form className="formdata">
           <input
             className="form-control"
             type="text"
@@ -75,7 +81,7 @@ function Welcome() {
           ></input>
           <br></br>
           <button
-            className="btnclass"
+            className="btnclass btn btn-primary"
             onClick={(e) => {
               e.preventDefault();
               const input = document.querySelectorAll("input");
@@ -91,13 +97,6 @@ function Welcome() {
             Submit
           </button>
         </form>
-        <button
-          onClick={(e) => {
-            console.log(document.querySelectorAll("formele"));
-          }}
-        >
-          +Add User
-        </button>
       </div>
       {console.log("here newmovie", newMovie)}
       <div className="container">
@@ -123,6 +122,23 @@ function Welcome() {
       </div>
     </section>
   );
+}
+
+function on() {
+  console.log("hello");
+  var formEle = document.getElementById("formcontainer1");
+  console.log(formEle);
+  formEle.style.display = "block";
+}
+
+// function on() {
+//   document.getElementById("overlay").style.display = "block";
+// }
+
+function off() {
+  var formEle = document.getElementById("formcontainer1");
+  console.log(formEle);
+  formEle.style.display = "none";
 }
 
 export default App;
