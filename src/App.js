@@ -1,6 +1,10 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
+import Button from "@mui/material/Button";
+
+import { Counter } from "./Counter";
+import { Movie } from "./Movie";
 var newMovie = {};
 function App() {
   return <Welcome />;
@@ -44,6 +48,14 @@ function Welcome() {
       trailer: "https://www.youtube.com/watch?v=8Qn_spdM5Zg",
     },
   ]);
+  // let [style1, setstyle1] = useState(true);
+  // var togglestyle = {
+  //   display: style1 ? "block" : "none",
+  // };
+  // const ToggleFn = () => {
+  //   setstyle1(!style1);
+  // };
+
   return (
     <section className="pricing py-5 mainBack">
       <div className="movieName">
@@ -91,7 +103,10 @@ function Welcome() {
             placeholder="Add trailer"
           ></input>
           <br></br>
-          <button
+          {/* <Button variant="contained">Outlined</Button> */}
+
+          <Button
+            variant="contained"
             className="btnclass btn btn-primary"
             onClick={(e) => {
               e.preventDefault();
@@ -106,34 +121,14 @@ function Welcome() {
             }}
           >
             Submit
-          </button>
+          </Button>
         </form>
       </div>
       {console.log("here newmovie", newMovie)}
       <div className="container" onClick={off}>
         <div className="row">
-          {pricecart.map((user) => (
-            <div className="col-lg-3 mt-3">
-              <div className="card mb-5 mb-lg-0">
-                <div className="card-body">
-                  <img className="img-pic" src={user.movieDp}></img>
-                  <b>
-                    <div className="MovieName">
-                      <div>
-                        {user.MovieName}{" "}
-                        <a href={user.trailer} target="blank">
-                          <i class="fa-brands fa-youtube"></i>
-                        </a>
-                      </div>
-                      <div>⭐ {user.Rating}</div>
-                    </div>
-                  </b>
-                  <hr></hr>
-                  <p>{user.Moviedesc}</p>
-                  <Counter />
-                </div>
-              </div>
-            </div>
+          {pricecart.map((movie) => (
+            <Movie Movie={movie} />
           ))}
         </div>
       </div>
@@ -150,29 +145,17 @@ function on() {
 
 function off() {
   var formEle = document.getElementById("formcontainer1");
-  console.log(formEle);
+  // console.log(formEle);
   formEle.style.display = "none";
 }
 
-function Counter() {
-  let [like, setLike] = useState(0);
-  let [dislike, setDisLike] = useState(0);
-
-  const messageStyle = {
-    display: like - dislike >= 10 ? "block" : "none",
-  };
-  return (
-    <div className="likeDiv">
-      {/* <h2 style={messageStyle}>You are Awesome</h2> */}
-      {like - dislike >= 10 ? <h6>Must Watch 😍</h6> : null}
-      <button className="likeBtn" onClick={() => setLike(like + 1)}>
-        😍{like}
-      </button>
-      <button className="likeBtn" onClick={() => setDisLike(dislike + 1)}>
-        😭{dislike}
-      </button>
-    </div>
-  );
-}
-
+// function ToggleFn() {
+//   const [togglestyle, setTogglestyle] = useState(true);
+//   return (
+//     <i
+//       onClick={() => setTogglestyle(!togglestyle)}
+//       className="fa-solid fa-chevron-down"
+//     ></i>
+//   );
+// }
 export default App;
