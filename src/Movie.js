@@ -14,26 +14,27 @@ export function Movie({ Movie }) {
             <div className="MovieName">
               <div>
                 {Movie.MovieName}{" "}
+                {togglestyle ? (
+                  <IconButton color="primary">
+                    <i
+                      onClick={() => setTogglestyle(!togglestyle)}
+                      className="fa-solid fa-chevron-up"
+                    ></i>
+                  </IconButton>
+                ) : null}
+                {!togglestyle ? (
+                  <IconButton color="primary">
+                    <i
+                      onClick={() => setTogglestyle(!togglestyle)}
+                      className="fa-solid fa-chevron-down"
+                    ></i>
+                  </IconButton>
+                ) : null}
                 {/* <a href={Movie.trailer} target="blank">
                   <i class="fa-brands fa-youtube"></i>
                 </a> */}
               </div>
-              {togglestyle ? (
-                <IconButton color="primary">
-                  <i
-                    onClick={() => setTogglestyle(!togglestyle)}
-                    className="fa-solid fa-chevron-down"
-                  ></i>
-                </IconButton>
-              ) : null}
-              {!togglestyle ? (
-                <IconButton color="primary">
-                  <i
-                    onClick={() => setTogglestyle(!togglestyle)}
-                    className="fa-solid fa-chevron-up"
-                  ></i>
-                </IconButton>
-              ) : null}
+
               <div>⭐ {Movie.Rating}</div>
             </div>
           </b>
