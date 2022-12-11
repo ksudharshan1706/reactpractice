@@ -1,6 +1,8 @@
 import { IconButton } from "@mui/material";
 import { useState } from "react";
 import { Counter } from "./Counter";
+import ExpandLessSharpIcon from "@mui/icons-material/ExpandLessSharp";
+import ExpandMoreSharpIcon from "@mui/icons-material/ExpandMoreSharp";
 
 export function Movie({ Movie }) {
   const [togglestyle, setTogglestyle] = useState(true);
@@ -15,6 +17,15 @@ export function Movie({ Movie }) {
               <div>
                 {Movie.MovieName}{" "}
                 {togglestyle ? (
+                  <ExpandLessSharpIcon
+                    onClick={() => setTogglestyle(!togglestyle)}
+                  />
+                ) : (
+                  <ExpandMoreSharpIcon
+                    onClick={() => setTogglestyle(!togglestyle)}
+                  />
+                )}
+                {/* {togglestyle ? (
                   <IconButton color="primary">
                     <i
                       onClick={() => setTogglestyle(!togglestyle)}
@@ -29,7 +40,7 @@ export function Movie({ Movie }) {
                       className="fa-solid fa-chevron-down"
                     ></i>
                   </IconButton>
-                ) : null}
+                ) : null} */}
                 {/* <a href={Movie.trailer} target="blank">
                   <i class="fa-brands fa-youtube"></i>
                 </a> */}
