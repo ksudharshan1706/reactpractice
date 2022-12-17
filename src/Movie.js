@@ -2,11 +2,12 @@ import { IconButton } from "@mui/material";
 import { useState } from "react";
 import { Counter } from "./Counter";
 import ExpandLessSharpIcon from "@mui/icons-material/ExpandLessSharp";
-import ExpandMoreSharpIcon from "@mui/icons-material/ExpandMoreSharp";
+import InfoIcon from "@mui/icons-material/Info";
+import { Navigate, useNavigate } from "react-router-dom";
 
-export function Movie({ Movie }) {
+export function Movie({ Movie, id }) {
   const [togglestyle, setTogglestyle] = useState(true);
-
+  const navigate = useNavigate();
   return (
     <div className="col-lg-3 mt-3">
       <div className="card mb-5 mb-lg-0">
@@ -15,35 +16,30 @@ export function Movie({ Movie }) {
           <b>
             <div className="MovieName">
               <div>
-                {Movie.MovieName}{" "}
+                {Movie.MovieName}
+                {/* {Movie.trailer} */}
                 {togglestyle ? (
-                  <ExpandLessSharpIcon
-                    onClick={() => setTogglestyle(!togglestyle)}
-                  />
-                ) : (
-                  <ExpandMoreSharpIcon
-                    onClick={() => setTogglestyle(!togglestyle)}
-                  />
-                )}
-                {/* {togglestyle ? (
                   <IconButton color="primary">
                     <i
                       onClick={() => setTogglestyle(!togglestyle)}
                       className="fa-solid fa-chevron-up"
                     ></i>
                   </IconButton>
-                ) : null}
-                {!togglestyle ? (
+                ) : (
                   <IconButton color="primary">
                     <i
                       onClick={() => setTogglestyle(!togglestyle)}
                       className="fa-solid fa-chevron-down"
                     ></i>
                   </IconButton>
-                ) : null} */}
-                {/* <a href={Movie.trailer} target="blank">
-                  <i class="fa-brands fa-youtube"></i>
-                </a> */}
+                )}
+                <IconButton
+                  onClick={() => navigate(`/movies/${id}`)}
+                  // onClick={() => navigate(`/movies/${Movie.MovieName}`)}
+                  color="primary"
+                >
+                  <InfoIcon />
+                </IconButton>
               </div>
 
               <div>⭐ {Movie.Rating}</div>

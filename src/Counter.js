@@ -12,7 +12,11 @@ export function Counter() {
     <div className="likeDiv">
       {/* <h2 style={messageStyle}>You are Awesome</h2> */}
       {like - dislike >= 10 ? <h6>Must Watch 😍</h6> : null}
-      <Badge badgeContent={like} color="primary">
+      <Badge
+        onClick={() => setLike(like + 1)}
+        badgeContent={like}
+        color="primary"
+      >
         <IconButton onClick={() => setLike(like + 1)}>👍</IconButton>
       </Badge>
 

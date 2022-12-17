@@ -1,15 +1,11 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { useState } from "react";
-import Button from "@mui/material/Button";
-
+import { Routes, Route, Link, Navigate, useParams } from "react-router-dom";
 import { Counter } from "./Counter";
-import { Movie } from "./Movie";
-var newMovie = {};
+import { Welcome } from "./Welcome";
+import { useState } from "react";
+export var newMovie = {};
 function App() {
-  return <Welcome />;
-}
-function Welcome() {
   const [pricecart, setPricecart] = useState([
     {
       movieDp:
@@ -48,107 +44,68 @@ function Welcome() {
       trailer: "https://www.youtube.com/watch?v=8Qn_spdM5Zg",
     },
   ]);
-  // let [style1, setstyle1] = useState(true);
-  // var togglestyle = {
-  //   display: style1 ? "block" : "none",
-  // };
-  // const ToggleFn = () => {
-  //   setstyle1(!style1);
-  // };
 
   return (
-    <section className="pricing py-5 mainBack">
-      <div className="movieName">
-        <p>MOVIES</p>
-      </div>
-      <button type="button" className="btn btn-light btnFloat" onClick={on}>
-        <i class="fa-solid fa-plus"></i>
-      </button>
-      <br></br>
-      <div id="formcontainer1" className="container formcontainer">
-        <i class="fa-solid fa-xmark" onClick={off}></i>
-        <form className="formdata">
-          <input
-            className="form-control"
-            type="text"
-            id="movieDp"
-            placeholder="Movie Picture"
-          ></input>
-          <br></br>
-          <input
-            className="form-control"
-            type="text"
-            id="MovieName"
-            placeholder="Movie Name"
-          ></input>
-          <br></br>
-          <input
-            className="form-control"
-            type="text"
-            id="Rating"
-            placeholder="Movie Rating"
-          ></input>
-          <br></br>
-          <input
-            className="form-control"
-            type="text"
-            id="Moviedesc"
-            placeholder="Movie Desc"
-          ></input>
-          <br></br>
-          <input
-            className="form-control"
-            type="text"
-            id="trailer"
-            placeholder="Add trailer"
-          ></input>
-          <br></br>
-          {/* <Button variant="contained">Outlined</Button> */}
+    <div className="App">
+      {/* <Welcome /> */}
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
 
-          <Button
-            variant="contained"
-            className="btnclass btn btn-primary"
-            onClick={(e) => {
-              e.preventDefault();
-              const input = document.querySelectorAll("input");
-              console.log("here", input);
-              var data = {};
-              for (var i = 0; i < input.length; i++) {
-                data[input[i].id] = input[i].value;
-              }
-              newMovie = data;
-              setPricecart([...pricecart, newMovie]);
-            }}
-          >
-            Submit
-          </Button>
-        </form>
-      </div>
-      {console.log("here newmovie", newMovie)}
-      <div className="container" onClick={off}>
-        <div className="row">
-          {pricecart.map((movie) => (
-            <Movie Movie={movie} />
-          ))}
-        </div>
-      </div>
-    </section>
+        <li>
+          <Link to="/movies">movies </Link>
+        </li>
+      </ul>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/films" element={<Navigate replace to="/movies" />} />
+        <Route
+          path="/movies"
+          element={
+            <Welcome pricecart={pricecart} setPricecart={setPricecart} />
+          }
+        />
+        <Route
+          path="/movies/:id"
+          element={<MovieDetail pricecart={pricecart} />}
+        />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </div>
   );
 }
-
-function on() {
-  console.log("hello");
-  var formEle = document.getElementById("formcontainer1");
-  console.log(formEle);
-  formEle.style.display = "block";
+function MovieDetail({ pricecart }) {
+  const { id } = useParams();
+  console.log(pricecart[id]);
+  var moviedata = pricecart[id];
+  return (
+    <div className="card-body">
+      <iframe
+        width="853"
+        height="480"
+        src={moviedata.trailer}
+        title="Veera Simha Reddy - Suguna Sundari Lyrical Video | Nandamuri Balakrishna | Shruti Haasan | Thaman S"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+      {/* <img className="img-pic" src={moviedata.movieDp}></img> */}
+      <b>
+        <div className="MovieName">
+          <div>{moviedata.MovieName}</div>
+          <div>⭐ {moviedata.Rating}</div>
+        </div>
+      </b>
+      <hr></hr>
+      <p>{moviedata.Moviedesc}</p>
+      <Counter />
+    </div>
+  );
 }
-
-function off() {
-  var formEle = document.getElementById("formcontainer1");
-  // console.log(formEle);
-  formEle.style.display = "none";
+function NotFound() {
+  return <h1>404 Error</h1>;
 }
-
 // function ToggleFn() {
 //   const [togglestyle, setTogglestyle] = useState(true);
 //   return (
@@ -158,4 +115,13 @@ function off() {
 //     ></i>
 //   );
 // }
+
+function Home() {
+  return (
+    <div>
+      <h1>Welcome to Home</h1>
+    </div>
+  );
+}
+
 export default App;
