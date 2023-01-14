@@ -4,8 +4,9 @@ import { Counter } from "./Counter";
 import ExpandLessSharpIcon from "@mui/icons-material/ExpandLessSharp";
 import InfoIcon from "@mui/icons-material/Info";
 import { Navigate, useNavigate } from "react-router-dom";
+import { CardActions } from "@mui/material";
 
-export function Movie({ Movie, id }) {
+export function Movie({ Movie, id, deletebutton }) {
   const [togglestyle, setTogglestyle] = useState(true);
   const navigate = useNavigate();
   return (
@@ -35,7 +36,6 @@ export function Movie({ Movie, id }) {
                 )}
                 <IconButton
                   onClick={() => navigate(`/movies/${id}`)}
-                  // onClick={() => navigate(`/movies/${Movie.MovieName}`)}
                   color="primary"
                 >
                   <InfoIcon />
@@ -47,7 +47,10 @@ export function Movie({ Movie, id }) {
           </b>
           <hr></hr>
           {togglestyle ? <p>{Movie.Moviedesc}</p> : null}
-          <Counter />
+          <CardActions className="CounterDelete">
+            <Counter />
+            {deletebutton}
+          </CardActions>
         </div>
       </div>
     </div>

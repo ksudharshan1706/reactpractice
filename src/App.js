@@ -3,84 +3,82 @@ import "./App.css";
 import { Routes, Route, Link, Navigate, useParams } from "react-router-dom";
 import { Counter } from "./Counter";
 import { Welcome } from "./Welcome";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Button from "@mui/material/Button";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { AddMovie } from "./AddMovie";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { BasicForm } from "./BasicForm";
 export var newMovie = {};
+const darkTheme = createTheme({
+  palette: {
+    mode: "light",
+  },
+});
 function App() {
-  const [pricecart, setPricecart] = useState([
-    {
-      movieDp:
-        "https://www.pinkvilla.com/imageresize/_rrr_postponed.jpg?width=752&t=pvorg",
-      MovieName: "RRR",
-      Rating: "8.0",
-      Moviedesc:
-        "A fearless revolutionary and an officer in the British force, who once shared a deep bond, decide to join forces and chart out an inspirational path of freedom against the despotic rulers.",
-      trailer: "https://www.youtube.com/watch?v=NgBoMJy386M",
-    },
-    {
-      movieDp:
-        "https://m.media-amazon.com/images/M/MV5BYWVlMjVhZWYtNWViNC00ODFkLTk1MmItYjU1MDY5ZDdhMTU3XkEyXkFqcGdeQXVyODIwMDI1NjM@._V1_.jpg",
-      MovieName: "BAHUBALI",
-      Rating: "8.2",
-      Moviedesc:
-        "In the kingdom of Mahishmati, Shivudu falls in love with a young warrior woman. While trying to woo her, he learns about the conflict-ridden past of his family and his true legacy.",
-      trailer: "https://www.youtube.com/watch?v=sOEg_YZQsTI",
-    },
-    {
-      movieDp:
-        "https://cdn.gulte.com/wp-content/uploads/2022/05/WhatsApp-Image-2022-05-02-at-10.03.05-AM.jpeg",
-      MovieName: "HIT 2",
-      Rating: "6.9",
-      Moviedesc:
-        "HIT 2 is an upcoming Indian Telugu-language action thriller film written and directed by Sailesh Kolanu. The second installment in The HIT Verse, the film stars Adivi Sesh and Meenakshi",
-      trailer: "https://www.youtube.com/watch?v=-OMTthapaWE",
-    },
-    {
-      movieDp:
-        "https://assets-prd.ignimgs.com/2022/05/25/starwarssaga-blogroll-1653501853399.jpg",
-      MovieName: "STARWARS",
-      Rating: "8.7",
-      Moviedesc:
-        "Star Wars is an American epic space opera multimedia franchise created by George Lucas, which began with the eponymous 1977 film and quickly became a worldwide pop-culture phenomenon.",
-      trailer: "https://www.youtube.com/watch?v=8Qn_spdM5Zg",
-    },
-  ]);
+  const [pricecart, setPricecart] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch("https://635f6f7f3e8f65f283b2ee35.mockapi.io/movies")
+      .then((data) => data.json())
+      .then((mvs) => setPricecart(mvs));
+  }, []);
 
   return (
-    <div className="App">
-      {/* <Welcome /> */}
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
+    <ThemeProvider theme={darkTheme}>
+      <div className="App">
+        <Box sx={{ flexGrow: 1 }}>
+          <AppBar position="static">
+            <Toolbar>
+              <Button color="inherit" onClick={() => navigate("/")}>
+                Home
+              </Button>
+              <Button color="inherit" onClick={() => navigate("/films")}>
+                Movies
+              </Button>
+              <Button color="inherit" onClick={() => navigate("/movies/add")}>
+                Add Movie
+              </Button>
+            </Toolbar>
+          </AppBar>
+        </Box>
 
-        <li>
-          <Link to="/movies">movies </Link>
-        </li>
-      </ul>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/films" element={<Navigate replace to="/movies" />} />
-        <Route
-          path="/movies"
-          element={
-            <Welcome pricecart={pricecart} setPricecart={setPricecart} />
-          }
-        />
-        <Route
-          path="/movies/:id"
-          element={<MovieDetail pricecart={pricecart} />}
-        />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/films" element={<Navigate replace to="/movies" />} />
+          <Route path="/movies" element={<Welcome />} />
+          <Route path="/movies/:id" element={<MovieDetail />} />
+          <Route path="*" element={<NotFound />} />
+          <Route path="/movies/add" element={<AddMovie />} />
+          <Route path="/basic-form" element={<BasicForm />} />
+        </Routes>
+      </div>
+    </ThemeProvider>
   );
 }
-function MovieDetail({ pricecart }) {
+
+function MovieDetail() {
   const { id } = useParams();
-  console.log(pricecart[id]);
-  var moviedata = pricecart[id];
+  var [moviedata, setmovie] = useState({});
+  console.log(id);
+  const navigate = useNavigate();
+  useEffect(() => {
+    fetch(`https://635f6f7f3e8f65f283b2ee35.mockapi.io/movies/${id}`)
+      .then((data) => data.json())
+      .then((mvs) => setmovie(mvs));
+  }, []);
+  console.log(moviedata);
   return (
     <div className="card-body">
+      <br></br>
       <iframe
         width="853"
         height="480"
@@ -90,7 +88,6 @@ function MovieDetail({ pricecart }) {
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
       ></iframe>
-      {/* <img className="img-pic" src={moviedata.movieDp}></img> */}
       <b>
         <div className="MovieName">
           <div>{moviedata.MovieName}</div>
@@ -100,21 +97,20 @@ function MovieDetail({ pricecart }) {
       <hr></hr>
       <p>{moviedata.Moviedesc}</p>
       <Counter />
+      <Button
+        variant="contained"
+        className="btnclass btn btn-primary"
+        onClick={() => navigate(-1)}
+        startIcon={<ArrowBackIcon />}
+      >
+        Back
+      </Button>
     </div>
   );
 }
 function NotFound() {
   return <h1>404 Error</h1>;
 }
-// function ToggleFn() {
-//   const [togglestyle, setTogglestyle] = useState(true);
-//   return (
-//     <i
-//       onClick={() => setTogglestyle(!togglestyle)}
-//       className="fa-solid fa-chevron-down"
-//     ></i>
-//   );
-// }
 
 function Home() {
   return (
