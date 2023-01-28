@@ -6,7 +6,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import { Navigate, useNavigate } from "react-router-dom";
 import { CardActions } from "@mui/material";
 
-export function Movie({ Movie, id, deletebutton }) {
+export function Movie({ Movie, id, deletebutton, editbutton }) {
   const [togglestyle, setTogglestyle] = useState(true);
   const navigate = useNavigate();
   return (
@@ -49,6 +49,7 @@ export function Movie({ Movie, id, deletebutton }) {
           {togglestyle ? <p>{Movie.Moviedesc}</p> : null}
           <CardActions className="CounterDelete">
             <Counter />
+            {editbutton}
             {deletebutton}
           </CardActions>
         </div>

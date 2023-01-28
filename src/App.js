@@ -16,6 +16,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { BasicForm } from "./BasicForm";
+import { EditMovie } from "./EditMovie";
 export var newMovie = {};
 const darkTheme = createTheme({
   palette: {
@@ -59,6 +60,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
           <Route path="/movies/add" element={<AddMovie />} />
           <Route path="/basic-form" element={<BasicForm />} />
+          <Route path="/movies/editMovie/:id" element={<EditMovie />} />
         </Routes>
       </div>
     </ThemeProvider>

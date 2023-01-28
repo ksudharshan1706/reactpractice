@@ -3,6 +3,8 @@ import Button from "@mui/material/Button";
 import "./App.css";
 import { Movie } from "./Movie";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useNavigate } from "react-router-dom";
+import EditIcon from "@mui/icons-material/Edit";
 export function Welcome() {
   const [pricecart, setPricecart] = useState([]);
   const getMoives = () => {
@@ -21,6 +23,8 @@ export function Welcome() {
       method: `DELETE`,
     }).then(() => getMoives());
   };
+
+  const navigate = useNavigate();
 
   return (
     <section className="pricing py-5 mainBack">
@@ -44,6 +48,16 @@ export function Welcome() {
                 >
                   delete
                 </DeleteIcon>
+              }
+              editbutton={
+                <EditIcon
+                  color="primary"
+                  onClick={() => {
+                    navigate(`/movies/editMovie/${movie.id}`);
+                  }}
+                >
+                  edit
+                </EditIcon>
               }
             />
             // <Movie key={index} Movie={movie} id={index} />
