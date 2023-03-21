@@ -8,10 +8,10 @@ import { API } from "./global.js";
 var newMovie = {};
 
 const movieValidationSchema = yup.object({
-  MovieName: yup.string().min(4),
-  movieDp: yup.string().min(4),
-  Moviedesc: yup.string().min(20),
-  Rating: yup.number().min(0).max(10),
+  name: yup.string().min(4),
+  poster: yup.string().min(4),
+  summary: yup.string().min(20),
+  rating: yup.number().min(0).max(10),
   trailer: yup.string().min(4),
 });
 export function EditMovie() {
@@ -29,10 +29,10 @@ function EditMovieForm({ movie }) {
   console.log(movie);
   const formik = useFormik({
     initialValues: {
-      MovieName: movie.MovieName,
-      movieDp: movie.movieDp,
-      Moviedesc: movie.Moviedesc,
-      Rating: movie.Rating,
+      name: movie.name,
+      poster: movie.poster,
+      summary: movie.summary,
+      rating: movie.rating,
       trailer: movie.trailer,
     },
     validationSchema: movieValidationSchema,
@@ -55,33 +55,31 @@ function EditMovieForm({ movie }) {
     <form onSubmit={formik.handleSubmit} className="formdata">
       <TextField
         id="outlined-basic"
-        label="MovieName"
+        label="name"
         variant="outlined"
-        name="MovieName"
-        value={formik.values.MovieName}
+        name="name"
+        value={formik.values.name}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
-        error={formik.touched.MovieName && formik.errors.MovieName}
+        error={formik.touched.name && formik.errors.name}
         helperText={
-          formik.touched.MovieName && formik.errors.MovieName
-            ? formik.errors.MovieName
-            : null
+          formik.touched.name && formik.errors.name ? formik.errors.name : null
         }
       />
 
       <br></br>
       <TextField
         id="outlined-basic"
-        label="MovieDp"
+        label="poster"
         variant="outlined"
-        name="movieDp"
-        value={formik.values.movieDp}
+        name="poster"
+        value={formik.values.poster}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
-        error={formik.touched.movieDp && formik.errors.movieDp}
+        error={formik.touched.poster && formik.errors.poster}
         helperText={
-          formik.touched.movieDp && formik.errors.movieDp
-            ? formik.errors.movieDp
+          formik.touched.poster && formik.errors.poster
+            ? formik.errors.poster
             : null
         }
       />
@@ -91,14 +89,14 @@ function EditMovieForm({ movie }) {
         id="outlined-basic"
         label="Movie Desc"
         variant="outlined"
-        name="Moviedesc"
-        value={formik.values.Moviedesc}
+        name="summary"
+        value={formik.values.summary}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
-        error={formik.touched.Moviedesc && formik.errors.Moviedesc}
+        error={formik.touched.summary && formik.errors.summary}
         helperText={
-          formik.touched.Moviedesc && formik.errors.Moviedesc
-            ? formik.errors.Moviedesc
+          formik.touched.summary && formik.errors.summary
+            ? formik.errors.summary
             : null
         }
       />
@@ -106,16 +104,16 @@ function EditMovieForm({ movie }) {
       <br></br>
       <TextField
         id="outlined-basic"
-        label="Rating"
+        label="rating"
         variant="outlined"
-        name="Rating"
-        value={formik.values.Rating}
+        name="rating"
+        value={formik.values.rating}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
-        error={formik.touched.Rating && formik.errors.Rating}
+        error={formik.touched.rating && formik.errors.rating}
         helperText={
-          formik.touched.Rating && formik.errors.Rating
-            ? formik.errors.Rating
+          formik.touched.rating && formik.errors.rating
+            ? formik.errors.rating
             : null
         }
       />
