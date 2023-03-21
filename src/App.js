@@ -17,6 +17,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { BasicForm } from "./BasicForm";
 import { EditMovie } from "./EditMovie";
+import { API } from "./global.js";
 export var newMovie = {};
 const darkTheme = createTheme({
   palette: {
@@ -28,7 +29,7 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://635f6f7f3e8f65f283b2ee35.mockapi.io/movies")
+    fetch(`${API}`)
       .then((data) => data.json())
       .then((mvs) => setPricecart(mvs));
   }, []);
@@ -47,6 +48,9 @@ function App() {
               </Button>
               <Button color="inherit" onClick={() => navigate("/movies/add")}>
                 Add Movie
+              </Button>
+              <Button color="inherit" onClick={() => navigate("/basic-form")}>
+                SignUp
               </Button>
             </Toolbar>
           </AppBar>
@@ -73,7 +77,7 @@ function MovieDetail() {
   console.log(id);
   const navigate = useNavigate();
   useEffect(() => {
-    fetch(`https://635f6f7f3e8f65f283b2ee35.mockapi.io/movies/${id}`)
+    fetch(`${API}/${id}`)
       .then((data) => data.json())
       .then((mvs) => setmovie(mvs));
   }, []);

@@ -5,21 +5,22 @@ import { Movie } from "./Movie";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
+import { API } from "./global.js";
 export function Welcome() {
   const [pricecart, setPricecart] = useState([]);
   const getMoives = () => {
-    fetch("https://635f6f7f3e8f65f283b2ee35.mockapi.io/movies")
+    fetch(`${API}/movies`)
       .then((data) => data.json())
       .then((mvs) => setPricecart(mvs));
   };
+  console.log(pricecart);
   useEffect(() => {
     getMoives();
   }, []);
 
   const deleteMovie = (id) => {
     console.log(id);
-
-    fetch(`https://635f6f7f3e8f65f283b2ee35.mockapi.io/movies/${id}`, {
+    fetch(`${API}/movies/${id}`, {
       method: `DELETE`,
     }).then(() => getMoives());
   };

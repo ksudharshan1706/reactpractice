@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { API } from "./global.js";
 var newMovie = {};
 
 const movieValidationSchema = yup.object({
@@ -17,7 +18,7 @@ export function EditMovie() {
   const { id } = useParams();
   var [moviedata, setmovie] = useState(null);
   useEffect(() => {
-    fetch(`https://635f6f7f3e8f65f283b2ee35.mockapi.io/movies/${id}`)
+    fetch(`${API}/movies/${id}`)
       .then((data) => data.json())
       .then((mvs) => setmovie(mvs));
   }, [id]);
@@ -42,7 +43,7 @@ function EditMovieForm({ movie }) {
   });
   var navigate = useNavigate();
   const UpdateMovie = (newMovie) => {
-    fetch(`https://635f6f7f3e8f65f283b2ee35.mockapi.io/movies/${movie.id}`, {
+    fetch(`${API}/movies/${movie.id}`, {
       method: "PUT",
       body: JSON.stringify(newMovie),
       headers: { "Content-Type": "application/json" },

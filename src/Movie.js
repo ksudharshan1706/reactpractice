@@ -9,15 +9,16 @@ import { CardActions } from "@mui/material";
 export function Movie({ Movie, id, deletebutton, editbutton }) {
   const [togglestyle, setTogglestyle] = useState(true);
   const navigate = useNavigate();
+  console.log(Movie);
   return (
     <div className="col-lg-3 mt-3">
       <div className="card mb-5 mb-lg-0">
         <div className="card-body">
-          <img className="img-pic" src={Movie.movieDp}></img>
+          <img className="img-pic" src={Movie.poster}></img>
           <b>
             <div className="MovieName">
               <div>
-                {Movie.MovieName}
+                {Movie.name}
                 {/* {Movie.trailer} */}
                 {togglestyle ? (
                   <IconButton color="primary">
@@ -42,11 +43,11 @@ export function Movie({ Movie, id, deletebutton, editbutton }) {
                 </IconButton>
               </div>
 
-              <div>⭐ {Movie.Rating}</div>
+              <div>⭐ {Movie.rating}</div>
             </div>
           </b>
           <hr></hr>
-          {togglestyle ? <p>{Movie.Moviedesc}</p> : null}
+          {togglestyle ? <p>{Movie.summary}</p> : null}
           <CardActions className="CounterDelete">
             <Counter />
             {editbutton}
