@@ -49,9 +49,9 @@ function App() {
               <Button color="inherit" onClick={() => navigate("/movies/add")}>
                 Add Movie
               </Button>
-              <Button color="inherit" onClick={() => navigate("/basic-form")}>
+              {/* <Button color="inherit" onClick={() => navigate("/basic-form")}>
                 SignUp
-              </Button>
+              </Button> */}
             </Toolbar>
           </AppBar>
         </Box>

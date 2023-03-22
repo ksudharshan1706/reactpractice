@@ -1,5 +1,7 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { API } from "./global.js";
+import { useNavigate, useParams } from "react-router-dom";
 //npm install formik --save
 // npm i yup
 const formValidationSchema = yup.object({
@@ -16,9 +18,24 @@ export function BasicForm() {
     initialValues: { email: "", password: "" },
     validationSchema: formValidationSchema,
     onSubmit: (values) => {
-      console.log("onSubmit", values);
+      console.log(values);
+      LoginCredentials(values);
     },
   });
+  var navigate = useNavigate();
+  const LoginCredentials = (add) => {
+    fetch(`${API}/users/login`, {
+      method: "POST",
+      body: JSON.stringify(add),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        navigate("/movies");
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <form onSubmit={formik.handleSubmit}>
       <input
